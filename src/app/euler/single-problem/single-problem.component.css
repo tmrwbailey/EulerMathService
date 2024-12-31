@@ -1,0 +1,26 @@
+.problem-display {
+    background: var(--accent-color);
+    border-radius: 8px;
+    padding-bottom: 8px;
+  }
+  .problem-display-heading {
+    color: var(--primary-color);
+    padding: 5px 10px 0 10px;
+  }
+  .problem-display-number {
+    color: var(--primary-color);
+    padding: 5px 10px 0 10px;
+  }
+  .problem-display-bullet::before {
+    content: url("/assets/EulerComplete.png") / "";
+  }
+  
+  section.problem-display a {
+    padding-left: 20px;
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+  section.problem-display a::after {
+    content: "\203A";
+    margin-left: 5px;
+  }
