@@ -49,6 +49,20 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "local": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.dev.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -61,6 +75,9 @@
             },
             "development": {
               "browserTarget": "angular.io-example:build:development"
+            },
+            "local": {
+              "browserTarget": "angular.io-example:build:local"
             }
           },
           "defaultConfiguration": "development"

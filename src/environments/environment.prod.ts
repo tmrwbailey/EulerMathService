@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    calcApiUrl: 'https://eulermathservice.azurewebsites.net/'
+    calcApiUrl: 'https://eulermathservice.azurewebsites.net'
 }
