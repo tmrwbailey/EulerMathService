@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
   template: `<main>
     <a [routerLink]="['/']">
       <header class="site-name">
-        <img class="site-logo" src="/assets/Math_logo.png" alt="logo" aria-hidden="true">
+        <img class="site-logo" src="assets/Math_logo.png" alt="logo" aria-hidden="true">
       </header>
     </a>
     <section class="content">
