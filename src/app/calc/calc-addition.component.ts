@@ -17,20 +17,27 @@ export class AdditionComponent {
     constructor(private calcService: CalculationService) { }
 
     async submitAddition() {
+        // Start the calculation immediately
+        const additionPromise = this.calcService.add(this.num1, this.num2);
+        
+        // Post friendly message while waiting
+        this.resultChange.emit('Calculating...');
+        
         try {
-            this.result = await firstValueFrom(this.calcService.add(this.num1, this.num2));
+            this.result = await firstValueFrom(additionPromise);
+            // Clear the waiting message by emitting the actual result
+            this.resultChange.emit(this.result);
         } catch (error: any) {
             console.error('Full error object:', error);
             
             if (error.error) {
                 // Handle HTTP error response
                 this.result = typeof error.error === 'string' ? error.error : JSON.stringify(error.error);
-            }
-            else {
+            } else {
                 // Handle other types of errors
                 this.result = error.message || 'Unknown error occurred';
             }
+            this.resultChange.emit(this.result);
         }
-        this.resultChange.emit(this.result);
     }
 }

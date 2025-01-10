@@ -1,12 +1,85 @@
 :host {
   --content-padding: 10px;
+  --shadow-color: rgba(64, 78, 53, 0.8);
 }
+
 header {
   display: block;
   height: 60px;
   padding: var(--content-padding);
   box-shadow: 0px 5px 25px var(--shadow-color);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, #404e35 0%, #b6bea6 100%);
+  z-index: 1;
 }
+
+header::before {
+  pointer-events: none;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    transparent 10%,
+    rgba(225, 231, 240, 0.4) 45%,
+    rgba(225, 231, 240, 0.4) 55%,
+    transparent 90%,
+    transparent 100%
+  );
+  animation: shine 30s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -150%;
+  }
+  75% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.site-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.site-logo {
+  height: 60px; /* adjust as needed */
+}
+
+.attribution-header {
+  text-align: right;
+}
+.attribution-header h2,
+.attribution-header h3 {
+  margin: 0;
+  line-height: 1.2;
+}
+.attribution-header h3 {
+  font-weight: normal;
+  font-size: 0.9em;
+}
+.attribution-header a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.9em;
+  line-height: 1.2;
+}
+.attribution-header a:hover {
+  text-decoration: underline;
+}
+
 .content {
   padding: var(--content-padding);
 }

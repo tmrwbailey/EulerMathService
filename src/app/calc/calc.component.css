@@ -1,76 +1,218 @@
 .results {
-    display: grid;
-    column-gap: 14px;
-    row-gap: 14px;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
-    margin-top: 50px;
-    justify-content: space-around;
-  }
+  display: grid;
+  column-gap: 14px;
+  row-gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 300px));
+  margin-top: 50px;
+  justify-content: space-around;
+}
   
+input[type="text"] {
+  border: solid 1px var(--primary-color);
+  padding: 8px;
+  border-radius: 5px;
+  margin-right: 4px;
+  display: inline-block;
+  width: 30%;
+}
+  
+button {
+  padding: 7px;
+  border: solid 1px var(--primary-color);
+  background: var(--secondary-color);
+  color: white;
+  border-radius: 5px;
+}
+  
+@media (min-width: 500px) and (max-width: 768px) {
+  .results {
+    grid-template-columns: repeat(2, 1fr);
+  }
   input[type="text"] {
-    border: solid 1px var(--primary-color);
-    padding: 8px;
-    border-radius: 5px;
-    margin-right: 4px;
-    display: inline-block;
-    width: 30%;
-  }
+    width: 70%;
+  }   
+}
   
-  button {
-    padding: 7px;
-    border: solid 1px var(--primary-color);
-    background: var(--secondary-color);
-    color: white;
-    border-radius: 5px;
-  }
-  
-  @media (min-width: 500px) and (max-width: 768px) {
-    .results {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    input[type="text"] {
-        width: 70%;
-    }   
-  }
-  
-  @media (max-width: 499px) {
-    .results {
-        grid-template-columns: 1fr;
-    }    
-  }
+@media (max-width: 499px) {
+  .results {
+    grid-template-columns: 1fr;
+  }    
+}
+
+:host {
+  display: block;
+  height: auto;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 20px;
+  color: #cd853f;
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(205, 133, 63, 0.3);
+  overflow: hidden;
+  position: relative;
+}
+
+:host::before {
+  content: '';
+  position: fixed;
+  top: 92px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 92px);
+  background: 
+    url('../../assets/Calc-background.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+:host ::ng-deep .operations-column > * {
+  height: fit-content;
+  min-height: 0;
+  max-height: max-content;
+  margin: 3px 0;
+  padding: 0;
+}
 
 .calculator {
   display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  height: auto;
+  max-height: calc(100vh - 40px);
+}
+
+.input-group {
+  display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 800px;
-  margin: 20px auto;
+  gap: 1rem;
+  flex: 1;
+}
+
+.operations-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+  width: 60px;
+}
+
+.result-group {
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .large-input {
-  padding: 10px;
-  font-size: 18px;
   width: 100%;
-  height: 200px;
-  resize: vertical;
 }
 
-.operations {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 0;
-}
-
-.operation-btn {
-  padding: 15px 30px;
+.operation-btn{
+  width: 100%;
+  padding: 15px 0;
   font-size: 24px;
-  flex-grow: 1;
-  margin: 0 10px;
+  margin: 0;
+  background: 
+    linear-gradient(145deg, rgba(61, 50, 40, 0.3), rgba(43, 36, 28, 0.3)),
+    url('../../assets/metal patina.PNG');
+  background-size: 150% 150%;
+  border: 2px solid #584434;
+  box-shadow: 
+    inset 0 0 0 1px rgba(255,255,255,0.08),
+    inset 0 0 20px rgba(0,0,0,0.4),
+    0 4px 8px rgba(0,0,0,0.6);
+  color: #cd853f;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  position: relative;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
-.division-btn {
-  padding: 12px 28px;
+/* Individual button positions */
+:host ::ng-deep app-calc-addition .operation-btn,
+:host ::ng-deep app-calc-addition .operation-btn:hover {
+  background-position: 0% 0%;
+}
+
+:host ::ng-deep app-calc-subtraction .operation-btn,
+:host ::ng-deep app-calc-subtraction .operation-btn:hover  {
+  background-position: 100% 0%;
+}
+
+:host ::ng-deep app-calc-multiplication .operation-btn,
+:host ::ng-deep app-calc-multiplication .operation-btn:hover  {
+  background-position: 0% 100%;
+}
+
+:host ::ng-deep app-calc-division .operation-btn,
+:host ::ng-deep app-calc-division .operation-btn:hover  {
+  background-position: 100% 100%;
   font-size: 30px;
-  flex-grow: 1;
-  margin: 0 10px;
+  padding: 12px 0;
+}
+
+.operation-btn::before{
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 8px;
+  height: 8px;
+  background: #2b241c;
+  border-radius: 50%;
+  border: 1px solid #704214;
+  box-shadow: 
+    inset 0 0 2px rgba(0,0,0,0.6),
+    0 0 4px rgba(205, 133, 63, 0.4);
+}
+
+.operation-btn::after{
+  content: '';
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 8px;
+  height: 8px;
+  background: #2b241c;
+  border-radius: 50%;
+  border: 1px solid #704214;
+  box-shadow: 
+    inset 0 0 2px rgba(0,0,0,0.6),
+    0 0 4px rgba(205, 133, 63, 0.4);
+}
+
+.operation-btn:hover{
+  background: 
+    linear-gradient(145deg, rgba(43, 36, 28, 0.2), rgba(61, 50, 40, 0.2)),
+    url('../../assets/metal patina.PNG');
+  background-size: 150% 150%;
+  color: #deb887;
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 0 0 1px rgba(255,255,255,0.08),
+    inset 0 0 20px rgba(0,0,0,0.4),
+    0 6px 12px rgba(0,0,0,0.6),
+    0 0 8px rgba(205, 133, 63, 0.3);
+}
+
+.operation-btn:active{
+  transform: translateY(1px);
+  background: linear-gradient(145deg, #241c15, #2f261d);
+  box-shadow: 
+    inset 0 0 0 1px rgba(255,255,255,0.08),
+    inset 0 0 20px rgba(0,0,0,0.5),
+    0 2px 4px rgba(0,0,0,0.6);
+}
+
+textarea.large-input {
+  color: #98b898;
+  background-color: rgba(43, 36, 28, 0.8);
+  border: 1px solid #584434;
+}
+
+textarea.large-input::placeholder {
+  color: rgba(152, 184, 152, 0.6);
 }

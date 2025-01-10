@@ -45,9 +45,11 @@ import { firstValueFrom } from 'rxjs';
       </p>
     </section>
     <div class="calculator">
-      <textarea [(ngModel)]="operand1" placeholder="Enter first number" class="large-input" rows="10"></textarea>
-      <textarea [(ngModel)]="operand2" placeholder="Enter second number" class="large-input" rows="10"></textarea>
-      <div class="operations">
+      <div class="input-group">
+        <textarea [(ngModel)]="operand1" placeholder="Enter first number" class="large-input" rows="10"></textarea>
+        <textarea [(ngModel)]="operand2" placeholder="Enter second number" class="large-input" rows="10"></textarea>
+      </div>
+      <div class="operations-column">
         <app-calc-addition
           [num1]="operand1"
           [num2]="operand2"
@@ -69,7 +71,9 @@ import { firstValueFrom } from 'rxjs';
           (resultChange)="onResultChange($event)">
         </app-calc-division>
       </div>
-      <textarea [value]="result" readonly placeholder="Result" class="large-input" rows="10"></textarea>
+      <div class="result-group">
+        <textarea [value]="result" readonly placeholder="Result" class="large-input" rows="10"></textarea>
+      </div>
     </div>
   `,
   styleUrls: ['./calc.component.css', '../app.component.css']
@@ -85,21 +89,4 @@ export class CalculatorComponent {
     onResultChange(result: string) {
         this.result = result;
     }
-
-    async submitAddition() {
-      try {
-          this.result = await firstValueFrom(this.calcAdditionService.add(this.operand1, this.operand2));
-      } catch (error: any) {
-          console.error('Full error object:', error);
-          
-          if (error.error) {
-              // Handle HTTP error response
-              this.result = typeof error.error === 'string' ? error.error : JSON.stringify(error.error);
-          }
-          else {
-              // Handle other types of errors
-              this.result = error.message || 'Unknown error occurred';
-          }
-      }
-  }
 }

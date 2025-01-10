@@ -17,8 +17,16 @@ export class MultiplicationComponent {
     constructor(private calcService: CalculationService) { }
 
     async submitMultiplication() {
+        // Start the calculation immediately
+        const multiplicationPromise = this.calcService.multiply(this.num1, this.num2);
+        
+        // Post friendly message while waiting
+        this.resultChange.emit('Calculating...');
+        
         try {
-            this.result = await firstValueFrom(this.calcService.multiply(this.num1, this.num2));
+            this.result = await firstValueFrom(multiplicationPromise);
+            // Clear the waiting message by emitting the actual result
+            this.resultChange.emit(this.result);
         } catch (error: any) {
             console.error('Full error object:', error);
             

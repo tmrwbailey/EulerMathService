@@ -5,7 +5,7 @@ import { firstValueFrom } from 'rxjs';
 @Component({
     selector: 'app-calc-subtraction',
     standalone: true,
-    template: '<button (click)="submitSubtraction()" class="operation-btn">-</button>',
+    template: '<button (click)="submitSubtraction()" class="operation-btn">−</button>',
     styleUrls: ['./calc.component.css']
 })
 export class SubtractionComponent {
@@ -17,8 +17,16 @@ export class SubtractionComponent {
     constructor(private calcService: CalculationService) { }
 
     async submitSubtraction() {
+        // Start the calculation immediately
+        const subtractionPromise = this.calcService.subtract(this.num1, this.num2);
+        
+        // Post friendly message while waiting
+        this.resultChange.emit('Calculating...');
+        
         try {
-            this.result = await firstValueFrom(this.calcService.subtract(this.num1, this.num2));
+            this.result = await firstValueFrom(subtractionPromise);
+            // Clear the waiting message by emitting the actual result
+            this.resultChange.emit(this.result);
         } catch (error: any) {
             console.error('Full error object:', error);
             

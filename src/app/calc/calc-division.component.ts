@@ -5,7 +5,7 @@ import { firstValueFrom } from 'rxjs';
 @Component({
     selector: 'app-calc-division',
     standalone: true,
-    template: '<button (click)="submitDivision()" class="division-btn">÷</button>',
+    template: '<button (click)="submitDivision()" class="operation-btn">÷</button>',
     styleUrls: ['./calc.component.css']
 })
 export class DivisionComponent {
@@ -17,8 +17,16 @@ export class DivisionComponent {
     constructor(private calcService: CalculationService) { }
 
     async submitDivision() {
+        // Start the calculation immediately
+        const divisionPromise = this.calcService.divide(this.num1, this.num2);
+        
+        // Post friendly message while waiting
+        this.resultChange.emit('Calculating...');
+        
         try {
-            this.result = await firstValueFrom(this.calcService.divide(this.num1, this.num2));
+            this.result = await firstValueFrom(divisionPromise);
+            // Clear the waiting message by emitting the actual result
+            this.resultChange.emit(this.result);
         } catch (error: any) {
             console.error('Full error object:', error);
             
